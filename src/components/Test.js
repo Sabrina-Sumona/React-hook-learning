@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-// useState is used to use states in functional component
+// useState hook is used to use states in functional component
+// useEffect hook is used for similar works like componentDidMount & componentDidUpdate in functional component
 const Test = props => {
     // //passing empty str
     // const testState = useState("");
@@ -63,10 +64,10 @@ const Test = props => {
     // useState must be declared at top level, we cant call it in ifelse or for loop or function etc.
     // we cant call setMyName directly, we must call it in changeState
     // if we call it directly, it will be overflowed
-    const [myName, setMyName] = useState({
-        a: "Sabrina",
-        b: "Naorin"
-    });
+    // const [myName, setMyName] = useState({
+    //     a: "Sabrina",
+    //     b: "Naorin"
+    // });
 
     // // just change where changing needed & others remain same
     // const changeState = () => {
@@ -77,13 +78,55 @@ const Test = props => {
     // }
 
     // using spreed operator
+    // we can call axios get here, but it is a bad practice
+    // const changeState = () => {
+    //     // setMyName({
+    //     //     ...myName,
+    //     //     b: "Sumona"
+    //     // });
+    //     // we can call axios post here
+    // }
+    // console.log("My name: ", myName);
+
+    // it done componentDidMount & componentDidUpdate both's work
+    // it will call when 1st time render, also when changes
+    // useEffect(() => {
+    //     // wecan call axios get here, it is a good practice
+    //     console.log("My name: ", myName);
+    // }
+    //     // it will be call when 1st time render & when update, else cant
+    //     // if no change in changeState then it will not call 2nd time
+    //     , [myName]);
+
+    const [myName, setMyName] = useState("");
+    const [myInfo, setMyInfo] = useState({
+        age: 23,
+        address: "Dhaka, Bangladesh"
+    });
+
+    // const changeState = () => {
+    //     setMyName("Sabrina");
+    // }
+
+    // useEffect(() => {
+    //     console.log("MyInfo:", myInfo);
+    //     // we can call multiple states here
+    //     // here everytime myInfo prints as it is in changeState so everytime shows as it updates 
+    // }, [myInfo, myName]);
+
     const changeState = () => {
-        setMyName({
-            ...myName,
-            b: "Sumona"
+        setMyName("Sabrina");
+        setMyInfo({
+            age: 19,
+            address: "Bogra, Bangladesh"
         })
     }
-    console.log("My name: ", myName);
+
+    useEffect(() => {
+        console.log("MyInfo:", myInfo);
+        console.log("MyName:", myName);
+        // empty array means it will call only 1st time render as componentDidMount
+    }, []);
 
     return (
         <div>
